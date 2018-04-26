@@ -26,7 +26,7 @@
 #define MAX_PORT 65535      // Highest port number we can use.
 #define MAX_PORT_LENGTH 5   // Length of MAX_PORT.
 
-typedef circ_channel_s {
+typedef struct circ_channel_s {
     char name[CHANNEL_LENGTH];
 } CIrcChannel;
 
@@ -63,7 +63,7 @@ enum CIrcMessageType {
     CIRC_RPL_TRACEOPERATOR     = 204,
     CIRC_RPL_TRACEUSER         = 205,
     CIRC_RPL_TRACESERVER       = 206,
-    CIRC_RPL_TRACESERVER       = 207,
+    CIRC_RPL_TRACESERVICE      = 207,
     CIRC_RPL_TRACENEWTYPE      = 208,
     CIRC_RPL_TRACECLASS        = 209,
     CIRC_RPL_TRACERECONNECT    = 210,

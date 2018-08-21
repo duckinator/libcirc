@@ -4,7 +4,8 @@ INCLUDES := -I include/
 CC := clang
 
 override CCFLAGS += -std=c11 -pedantic-errors -fdiagnostics-show-option \
-					-Werror -Weverything #\
+					-Werror -Weverything \
+					-Wno-padded #\
 #					-Wno-cast-qual -Wno-missing-prototypes -Wno-vla
 
 EXECUTABLE ?= libcirc-example

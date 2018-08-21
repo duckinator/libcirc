@@ -288,7 +288,7 @@ bool circ_send(CIrcClient *client, char *recipient, char *message);
 bool circ_recv_raw(CIrcClient *client, char *message);
 bool circ_recv(CIrcClient *client, char *recipient, char *sender, char *message);
 
-bool circ_register_recv_callback(CIrcClient *client, 
+//bool circ_register_recv_callback(CIrcClient *client, 
 
 bool circ_change_nick(CIrcClient *client, char *new_nick);
 bool circ_join(CIrcClient *client, char *channel);

@@ -1,4 +1,4 @@
-SRCFILES := src/main.c
+SRCFILES := src/main.c src/circ.c src/send.c
 INCLUDES := -I include/
 
 CC := clang

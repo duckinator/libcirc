@@ -294,9 +294,11 @@ bool circ_recv(CIrcClient *client, char *sender, char *recipient,
 bool circ_register_recv_callback(CIrcClient *client,
         CIrcRecvCallback *callback);
 
+
+bool circ_connect(CIrcClient *client);
 bool circ_change_nick(CIrcClient *client, char *new_nick);
 bool circ_join(CIrcClient *client, char *channel);
-bool circ_part(CIrcClient *client, char *channel);
+bool circ_part(CIrcClient *client, char *channel, char *message);
 bool circ_privmsg(CIrcClient *client, char *recipient, char *message);
 
 #endif

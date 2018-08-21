@@ -1,14 +1,25 @@
 #include <circ.h>
 #include "send.h"
+#include <stdio.h>
 
 bool circ_send_raw(CIrcClient *client, char *message)
 {
+    (void)client;
+    (void)message;
+
     printf("[SEND] %s\n", message);
+
+    return true;
 }
 
 bool circ_send(CIrcClient *client, char *recipient, char *message)
 {
     // TODO.
+    (void)client;
+    (void)recipient;
+    (void)message;
+
+    return true;
 }
 
 bool _circ_send2(CIrcClient *client, char *chunk1, char *chunk2)

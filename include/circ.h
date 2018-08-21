@@ -10,35 +10,37 @@
 #include <sys/socket.h>
 /* End socket-related includes. */
 
-#define MESSAGE_LENGTH (512 + 1)  // IRC message length + room for null byte.
+// IRC message length + room for null byte.
+#define MESSAGE_BUFFER_LENGTH (512 + 1)
 
-// Maximum domain name length* (255) + room for null byte.
+// Maximum domain name length + room for null byte.
 // See RFC 1034, section 3.1, page 8. https://tools.ietf.org/html/rfc1034
-#define DOMAIN_LENGTH (255 + 1)
+#define DOMAIN_BUFFER_LENGTH (255 + 1)
 
 // Nick/handle length can vary by server, but can't be longer than a message.
-#define NICK_LENGTH MESSAGE_LENGTH
+#define NICK_BUFFER_LENGTH MESSAGE_BUFFER_LENGTH
 
 // Channel length vary by server, but can't be longer than a message.
-#define CHANNEL_LENGTH MESSAGE_LENGTH
+#define CHANNEL_BUFFER_LENGTH MESSAGE_BUFFER_LENGTH
 
 #define MIN_PORT 1          // Smallest port we can use. (TCP reserves port 0.)
 #define MAX_PORT 65535      // Highest port number we can use.
 #define MAX_PORT_LENGTH 5   // Length of MAX_PORT.
 
 typedef struct circ_channel_s {
-    char name[CHANNEL_LENGTH];
+    char name[CHANNEL_BUFFER_LENGTH];
 } CIrcChannel;
 
 typedef struct circ_server_s {
-    char address[DOMAIN_LENGTH];
+    char address[DOMAIN_BUFFER_LENGTH];
     uint16_t port;
 } CIrcServer;
 
 typedef struct circ_client_s {
-    char nick[NICK_LENGTH];
+    char nick[NICK_BUFFER_LENGTH];
     CIrcServer *server;
     int sock;
+    char pending_nick[NICK_BUFFER_LENGTH];
 } CIrcClient;
 
 enum CIrcMessageType {
@@ -286,9 +288,11 @@ typedef bool (CIrcRecvCallback)(CIrcClient *client, char *recipient,
 bool circ_send_raw(CIrcClient *client, char *message);
 bool circ_send(CIrcClient *client, char *recipient, char *message);
 bool circ_recv_raw(CIrcClient *client, char *message);
-bool circ_recv(CIrcClient *client, char *recipient, char *sender, char *message);
+bool circ_recv(CIrcClient *client, char *sender, char *recipient,
+        char *message);
 
-//bool circ_register_recv_callback(CIrcClient *client, 
+bool circ_register_recv_callback(CIrcClient *client,
+        CIrcRecvCallback *callback);
 
 bool circ_change_nick(CIrcClient *client, char *new_nick);
 bool circ_join(CIrcClient *client, char *channel);
